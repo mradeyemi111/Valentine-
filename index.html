@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Special Quest</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #fff0f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            color: #ff4d6d;
+        }
+        .card {
+            background: white;
+            padding: 2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        .step { display: none; }
+        .active { display: block; animation: fadeIn 0.5s; }
+        
+        button {
+            background-color: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1rem;
+            margin-top: 15px;
+            transition: transform 0.2s;
+        }
+        button:hover { transform: scale(1.05); background-color: #ff758f; }
+        input {
+            padding: 10px;
+            border: 2px solid #ffb3c1;
+            border-radius: 10px;
+            outline: none;
+            width: 80%;
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        h2 { margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <div id="step1" class="step active">
+        <h2>Hey! Quick question...</h2>
+        <p>Who is the coolest person in the world? (Hint: It's you)</p>
+        <input type="text" id="ans1" placeholder="Type your name...">
+        <br>
+        <button onclick="checkStep1()">Next ✨</button>
+    </div>
+
+    <div id="step2" class="step">
+        <h2>Correct! ✅</h2>
+        <p>On a scale of 1-10, how much do you like chocolate or flowers?</p>
+        <input type="number" id="ans2" placeholder="Enter a number">
+        <br>
+        <button onclick="nextStep(3)">Next 🌸</button>
+    </div>
+
+    <div id="step3" class="step">
+        <h2>Interesting...</h2>
+        <p>Final security check: Are you free on February 14th?</p>
+        <button onclick="nextStep(4)">Yes</button>
+        <button onclick="alert('Wrong answer! Try again 😉')">Maybe?</button>
+    </div>
+
+    <div id="step4" class="step">
+        <h2>❤️ The Big Question ❤️</h2>
+        <p>You've passed the test! So...</p>
+        <h3 style="font-size: 1.5rem;">Will you be my Valentine?</h3>
+        <button onclick="celebrate()">YES!</button>
+        <button id="noBtn" onmouseover="moveButton()">No</button>
+    </div>
+
+    <div id="step5" class="step">
+        <h2>YAY! 🎉</h2>
+        <p>I knew you were the right choice. See you soon!</p>
+        <p style="font-size: 3rem;">🌹</p>
+    </div>
+</div>
+
+<script>
+    function nextStep(stepNum) {
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('step' + stepNum).classList.add('active');
+    }
+
+    function checkStep1() {
+        const val = document.getElementById('ans1').value;
+        if(val.trim() !== "") nextStep(2);
+        else alert("You have to enter your name!");
+    }
+
+    function moveButton() {
+        const btn = document.getElementById('noBtn');
+        const x = Math.random() * (window.innerWidth - btn.offsetWidth);
+        const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+        btn.style.position = 'absolute';
+        btn.style.left = x + 'px';
+        btn.style.top = y + 'px';
+    }
+
+    function celebrate() {
+        nextStep(5);
+        // You could add a confetti library here if you're feeling fancy!
+    }
+</script>
+
+</body>
+</html>
+
